@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.36.1] - 2026-09-27
+
 ### Fixed
 
 - **rewriteSiteTs 重跑值感知化：site.ts 手填的可选字段不再被静默清空**（M1）：模板在 site.ts 写死 `contactEmail: ''` 与裸 `social { official }`，重跑 Initialize/`pnpm apply-template` 会用空白模板整体重写 `export const site` 块——fork 用户手填的 contactEmail、social.discord/youtube/twitter/reddit、sameAs、defaultAuthor 全部静默消失（wrangler `[vars]` v2.29.0 同类洞在 site.ts 面的残留）。现读取现值（与 `parseSiteTsIdentity` 同 `tsField` 锚点，双引号手改文件同样读得回），非空且非 demo 占位（新注册表 `DEMO_SITE_OPTIONAL_VALUES`，与 `rewriteWranglerVars` 同一值感知哲学）的字段随重写原样带回；present-but-unreadable（压缩单行对象、非字面量数组项）逐字段 stderr ⚠️ 后才丢弃——破坏性方向永不静默。demo 首跑输出与旧模板字节一致（占位照常清空、零多余产出），注册表导出供契约测试对 shipped site.ts 做漂移守卫。
@@ -1338,7 +1340,8 @@ This release covers everything since v0.2.0: the full PRD roadmap (v1.1–v2.0) 
 - Docs: PRD (1600+ lines), deployment, apply-template (4-step guide), content-format, seo, ads, migration-from-nextjs
 - Build: 27 pages, typecheck 0 errors
 
-[Unreleased]: https://github.com/PNGTRID/AnvilWiki/compare/v2.36.0...HEAD
+[Unreleased]: https://github.com/PNGTRID/AnvilWiki/compare/v2.36.1...HEAD
+[2.36.1]: https://github.com/PNGTRID/AnvilWiki/compare/v2.36.0...v2.36.1
 [2.36.0]: https://github.com/PNGTRID/AnvilWiki/compare/v2.35.2...v2.36.0
 [2.35.2]: https://github.com/PNGTRID/AnvilWiki/compare/v2.35.1...v2.35.2
 [2.35.1]: https://github.com/PNGTRID/AnvilWiki/compare/v2.35.0...v2.35.1
